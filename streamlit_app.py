@@ -25,13 +25,13 @@ if user_query:
     st.session_state.messages.append({"role": "user", "content": user_query})
     ui.show_user_message(user_query)
     
-    # Send the query to the platform's API endpoint
+    # Send the query directly to OpenAI's guaranteed official server
     try:
         response = requests.post(
-            "https://api.band.ai/v1/chat/completions",  # 👈 The correct machine endpoint for your platform
+            "https://api.openai.com/v1/chat/completions", # 👈 Using official OpenAI URL
             headers={"Authorization": f"Bearer {st.secrets['BAND_API_KEY']}"}, 
             json={
-                "model": "@20rummy05/head",  # 👈 Your exact Agent Handle goes here!
+                "model": "gpt-4o",  # 👈 Using the powerful gpt-4o model
                 "messages": st.session_state.messages # Passes full chat history for context memory
             }
         )
@@ -49,7 +49,7 @@ if user_query:
             # Force a rerun to clean up the form input box smoothly
             st.rerun()
         else:
-            st.error(f"Platform returned an unexpected message structure: {result}")
+            st.error(f"OpenAI returned an unexpected message structure: {result}")
         
     except Exception as e:
         st.error(f"Backend Connection Error: {e}")
