@@ -5,11 +5,11 @@ def init_page():
     st.set_page_config(page_title="Client Finder", page_icon="🤖", layout="wide")
     
     # Custom CSS to strip standard Streamlit layout and style the UI
+    # Custom CSS to match the exact shape and dark gray fill
     custom_css = """
     <style>
         /* Hide default Streamlit headers and footers */
         #MainMenu, header, footer {visibility: hidden;}
-        .embeddedApp_innerWindow__7w9m4 {background-color: #ffffff;}
         
         /* Main page layout */
         .main .block-container {
@@ -36,38 +36,43 @@ def init_page():
         /* Center Title */
         .main-title {
             text-align: center;
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: normal;
             color: #000000;
             line-height: 1.1;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
         }
         
-        /* Custom Pill Chat Box */
-        .chat-box-container {
-            display: flex;
-            justify-content: center;
-            width: 100%;
+        /* Centered form container to limit box width */
+        .stForm {
+            max-width: 680px;  /* Narrows the box width significantly */
+            margin: 0 auto;
+            border: none !important; /* Removes Streamlit's default form border */
+            padding: 0 !important;
         }
         
+        /* The Dark Gray Pill Box */
         .custom-chat-input {
-            width: 80%;
-            height: 140px;
-            background-color: #888888;
-            border: 3px solid #000000;
-            border-radius: 40px;
-            color: #ffffff;
-            font-family: monospace;
-            font-size: 1.1rem;
-            padding: 20px 30px;
-            outline: none;
-            box-shadow: 5px 5px 0px #666666; /* Drop shadow effect */
-            resize: none;
+            width: 100% !important;
+            height: 160px !important;       /* Made it significantly taller */
+            background-color: #555555 !important; /* Darker grey fill */
+            border: 3.5px solid #000000 !important; /* Thick crisp outline */
+            border-radius: 45px !important;  /* Rounded capsule ends */
+            color: #ffffff !important;
+            font-family: monospace !important;
+            font-size: 1.1rem !important;
+            padding: 25px 35px !important;
+            outline: none !important;
+            
+            /* The 3D layered shadow effect from the screenshot */
+            box-shadow: 4px 4px 0px #333333, 8px 8px 0px #aaaaaa !important; 
+            resize: none !important;
         }
         
+        /* Style the placeholder text inside the dark box */
         .custom-chat-input::placeholder {
-            color: #dddddd;
-            opacity: 0.9;
+            color: #cccccc !important;
+            opacity: 0.8;
         }
     </style>
     """
