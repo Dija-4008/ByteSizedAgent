@@ -128,7 +128,7 @@ def build_layout():
     )
     
     # 2. Main Large Title (Bold and Brown)
-    st.markdown('<div class="main-title">Your next<br>ai finder</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">Your Next<br>Client Finder</div>', unsafe_allow_html=True)
     
     # 3. Custom Chat Box using a Streamlit Form to capture layout
     with st.form(key="chat_form", clear_on_submit=True):
