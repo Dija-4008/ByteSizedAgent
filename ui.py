@@ -4,12 +4,9 @@ def init_page():
     """Sets the page title and injects custom CSS to match your exact design."""
     st.set_page_config(page_title="Client Finder", layout="wide")
     
-   # Custom CSS with Web Font Import
+  # Custom CSS strictly forcing the Consolas system font
     custom_css = """
     <style>
-        /* Import Cascadia Code/Mono from a public CDN so it loads on ALL devices */
-        @import url('https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code/index.css');
-
         /* Hide default Streamlit headers and footers */
         #MainMenu, header, footer {visibility: hidden;}
         
@@ -53,8 +50,10 @@ def init_page():
             padding: 0 !important;
         }
         
-        /* The Dark Gray Pill Box with imported font */
-        .custom-chat-input {
+        /* Forces Consolas on the custom input AND any text typed into it */
+        .custom-chat-input, 
+        .custom-chat-input input, 
+        .custom-chat-input textarea {
             width: 100% !important;
             height: 160px !important;       
             background-color: #555555 !important; 
@@ -62,8 +61,8 @@ def init_page():
             border-radius: 45px !important;  
             color: #ffffff !important;
             
-            /* Using the imported web font and explicitly setting a light font-weight (300) */
-            font-family: "Cascadia Code", "Cascadia Mono", monospace !important;
+            /* Explicitly forcing Consolas */
+            font-family: 'Consolas', monospace !important;
             font-weight: 300 !important;
             font-size: 1.1rem !important;
             
@@ -73,11 +72,12 @@ def init_page():
             resize: none !important;
         }
         
-        /* Style the placeholder text inside the dark box */
-        .custom-chat-input::placeholder {
+        /* Forces Consolas on the placeholder text specifically */
+        .custom-chat-input::placeholder,
+        .custom-chat-input input::placeholder {
             color: #cccccc !important;
             opacity: 0.8;
-            font-family: "Cascadia Code", "Cascadia Mono", monospace !important;
+            font-family: 'Consolas', monospace !important;
             font-weight: 300 !important;
         }
     </style>
