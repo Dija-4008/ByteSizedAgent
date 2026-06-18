@@ -2,10 +2,9 @@ import streamlit as st
 
 def init_page():
     """Sets the page title and injects custom CSS to match your exact design."""
-    st.set_page_config(page_title="Client Finder", layout="wide")
+    st.set_page_config(page_title="Client Finder", page_icon="🤖", layout="wide")
     
-    # Custom CSS to strip standard Streamlit layout and style the UI
-    # Custom CSS to match the exact shape and dark gray fill
+    # Custom CSS to match the exact shape, font, and dark gray fill
     custom_css = """
     <style>
         /* Hide default Streamlit headers and footers */
@@ -33,10 +32,10 @@ def init_page():
             color: #777777 !important;
         }
         
-        /* Center Title */
+        /* Center Title (Bigger font, removed exclamation mark look) */
         .main-title {
             text-align: center;
-            font-size: 4.5rem;
+            font-size: 5.5rem; /* Increased size */
             font-weight: normal;
             color: #000000;
             line-height: 1.1;
@@ -45,26 +44,28 @@ def init_page():
         
         /* Centered form container to limit box width */
         .stForm {
-            max-width: 680px;  /* Narrows the box width significantly */
+            max-width: 680px;  
             margin: 0 auto;
-            border: none !important; /* Removes Streamlit's default form border */
+            border: none !important; 
             padding: 0 !important;
         }
         
-        /* The Dark Gray Pill Box */
+        /* The Dark Gray Pill Box with Cascadia Mono Light */
         .custom-chat-input {
             width: 100% !important;
-            height: 160px !important;       /* Made it significantly taller */
-            background-color: #555555 !important; /* Darker grey fill */
-            border: 3.5px solid #000000 !important; /* Thick crisp outline */
-            border-radius: 45px !important;  /* Rounded capsule ends */
+            height: 160px !important;       
+            background-color: #555555 !important; 
+            border: 3.5px solid #000000 !important; 
+            border-radius: 45px !important;  
             color: #ffffff !important;
-            font-family: monospace !important;
+            
+            /* Font changed to Cascadia Mono Light */
+            font-family: "Cascadia Mono Light", "Cascadia Mono", monospace !important;
+            font-weight: 300 !important;
             font-size: 1.1rem !important;
+            
             padding: 25px 35px !important;
             outline: none !important;
-            
-            /* The 3D layered shadow effect from the screenshot */
             box-shadow: 4px 4px 0px #333333, 8px 8px 0px #aaaaaa !important; 
             resize: none !important;
         }
@@ -73,6 +74,8 @@ def init_page():
         .custom-chat-input::placeholder {
             color: #cccccc !important;
             opacity: 0.8;
+            font-family: "Cascadia Mono Light", "Cascadia Mono", monospace !important;
+            font-weight: 300 !important;
         }
     </style>
     """
@@ -86,12 +89,11 @@ def build_layout():
         unsafe_allow_html=True
     )
     
-    # 2. Main Large Title (Matches lowercase serif look)
-    st.markdown('<div class="main-title">your next<br>client finder!</div>', unsafe_allow_html=True)
+    # 2. Main Large Title (Removed the '!' and made it bigger via CSS)
+    st.markdown('<div class="main-title">your next<br>client finder</div>', unsafe_allow_html=True)
     
     # 3. Custom Chat Box using a Streamlit Form to capture the enter key
     with st.form(key="chat_form", clear_on_submit=True):
-        # We use a standard text input but wrap it with our CSS classes
         user_input = st.text_input(
             label="", 
             placeholder="Welcome! Type a message to talk to my marketing AI agent...",
@@ -128,4 +130,3 @@ def show_user_message(text):
 def show_agent_message(text):
     with st.chat_message("assistant"):
         st.write(text)
-        
