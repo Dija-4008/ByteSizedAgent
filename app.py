@@ -1,17 +1,32 @@
 import streamlit as st
 import requests
-import ui  # 👈 This imports your layout rules from ui.py!
+import ui  
 
-# 1. Tell ui.py to build the website storefront and listen for an input
+# 1. Initialize page configuration FIRST
+ui.init_page()
+
+# 2. Initialize chat history in session state if it doesn't exist yet
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# 3. Build the core layout
 user_message = ui.build_layout()
 
-# 2. Grab your secret password
-BAND_API_KEY = st.secrets["BAND_API_KEY"]
+# 4. Re-draw all previous messages from history so they don't disappear
+for msg in st.session_state.messages:
+    if msg["role"] == "user":
+        ui.show_user_message(msg["content"])
+    else:
+        ui.show_agent_message(msg["content"])
 
-# 3. If the user typed a message, run the background logic
+# 5. Grab your secret password
+BAND_API_KEY = st.secrets.get("BAND_API_KEY")
+
+# 6. If the user typed a new message
 if user_message:
-    # Display what the user typed using the UI file rule
+    # Display and save user message
     ui.show_user_message(user_message)
+    st.session_state.messages.append({"role": "user", "content": user_message})
         
     with st.spinner("Agent is thinking..."):
         try:
@@ -22,16 +37,16 @@ if user_message:
             }
             data = {
                 "model": "@20rummy05/head", 
-                "messages": [{"role": "user", "content": user_message}]
+                "messages": st.session_state.messages # Pass full history to the agent!
             }
             
-            # Send data to Band.ai
             response = requests.post(url, json=data, headers=headers)
             result = response.json()
             agent_reply = result["choices"][0]["message"]["content"]
             
-            # Display the AI reply using the UI file rule
+            # Display and save AI reply
             ui.show_agent_message(agent_reply)
+            st.session_state.messages.append({"role": "assistant", "content": agent_reply})
             
         except Exception as e:
-            st.error("Oops! Something went wrong connecting to your Band.ai agent.")
+            st.error(f"Oops! Something went wrong: {e}")
