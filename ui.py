@@ -2,10 +2,9 @@ import streamlit as st
 
 def init_page():
     """Sets the page title and injects custom CSS to match your exact design."""
-    st.set_page_config(page_title="Client Finder", layout="wide")
+    st.set_page_config(page_title="Client Finder", page_icon="🤖", layout="wide")
     
-  # Custom CSS strictly forcing the Consolas system font
-   # Custom CSS with light green screen and light yellow text
+    # Custom CSS with light green screen and light yellow text
     custom_css = """
     <style>
         /* Hide default Streamlit headers and footers */
@@ -56,7 +55,7 @@ def init_page():
             background: transparent !important;
         }
         
-        /* The Dark Gray Pill Box with Light Yellow Font */
+        /* The Dark Gray Pill Box with Bold Times New Roman & Light Yellow Font */
         .custom-chat-input, 
         .custom-chat-input input, 
         .custom-chat-input textarea {
@@ -67,7 +66,7 @@ def init_page():
             border-radius: 45px !important;  
             
             /* Text font colors changed to light yellow */
-            color: #ffffcc !important; /* Light yellow typed text */
+            color: #ffffcc !important; 
             
             font-family: 'Times New Roman', Times, serif !important;
             font-weight: bold !important;
@@ -82,13 +81,50 @@ def init_page():
         /* Light yellow placeholder text configuration */
         .custom-chat-input::placeholder,
         .custom-chat-input input::placeholder {
-            color: #ffffcc !important; /* Light yellow placeholder text */
+            color: #ffffcc !important; 
             opacity: 0.8;
             font-family: 'Times New Roman', Times, serif !important;
             font-weight: bold !important;
         }
     </style>
-    """, 
+    """
+    st.markdown(custom_css, unsafe_allow_html=True)
+
+def build_layout():
+    """Draws the custom visual design."""
+    # 1. Top Right Links
+    st.markdown(
+        '<div class="nav-container"><a class="nav-link" href="#">AboutUs</a><a class="nav-link" href="#">FAQ</a></div>', 
+        unsafe_allow_html=True
+    )
+    
+    # 2. Main Large Title
+    st.markdown('<div class="main-title">your next<br>client finder</div>', unsafe_allow_html=True)
+    
+    # 3. Custom Chat Box using a Streamlit Form to capture the enter key
+    with st.form(key="chat_form", clear_on_submit=True):
+        user_input = st.text_input(
+            label="Chat Input", 
+            placeholder="Welcome! Type a message to talk to my marketing AI agent...",
+            label_visibility="collapsed"
+        )
+        
+        # Hidden submit button so pressing 'Enter' submits the form
+        submit_button = st.form_submit_button(label="Send", use_container_width=False)
+        
+    # Injecting the custom pill shape classes onto the standard input element dynamically
+    st.markdown(
+        """
+        <script>
+            var inputs = window.parent.document.getElementsByTagName('input');
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].placeholder && inputs[i].placeholder.startsWith('Welcome!')) {
+                    inputs[i].className += ' custom-chat-input';
+                    inputs[i].parentElement.className += ' chat-box-container';
+                }
+            }
+        </script>
+        """, 
         unsafe_allow_html=True
     )
     
