@@ -110,7 +110,7 @@ def build_layout():
     )
     
     # 2. Main Large Title
-    st.markdown('<div class="main-title" style="font-family: \'Times New Roman\', Times, serif; font-weight: bold;">Your next<br>client finder</div>', unsafe_allow_html=True)    
+    st.markdown('<div class="main-title" style="font-family: \'Times New Roman\', Times, serif; font-weight: bold;">Your Next<br>Client Finder</div>', unsafe_allow_html=True)    
     # 3. Custom Chat Box using a Streamlit Form to capture the enter key
     with st.form(key="chat_form", clear_on_submit=True):
         user_input = st.text_input(
