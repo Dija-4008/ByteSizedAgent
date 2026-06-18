@@ -4,7 +4,7 @@ def init_page():
     """Sets the page title and injects custom CSS to match your exact design."""
     st.set_page_config(page_title="Client Finder", page_icon="🤖", layout="wide")
     
-    # Custom CSS with light green screen, brown title (Century Gothic), and left-aligned button
+    # Custom CSS with light green screen, brown title, and left-aligned button
     custom_css = """
     <style>
         /* Hide default Streamlit headers and footers */
@@ -36,13 +36,11 @@ def init_page():
             color: #555555 !important;
         }
         
-        /* Center Title - Bold, Brown, and Modern Geometric Font */
+        /* Center Title - Bold and Brown */
         .main-title {
             text-align: center;
             font-size: 5.5rem; 
-            font-family: 'Century Gothic', 'Futura', sans-serif !important; /* Premium Modern Pick */
             font-weight: bold !important;
-            letter-spacing: -1px; /* Slightly tightens letters for an artistic look */
             color: #8B4513 !important; /* Saddle Brown color */
             line-height: 1.1;
             margin-bottom: 3rem;
@@ -129,7 +127,7 @@ def build_layout():
         unsafe_allow_html=True
     )
     
-    # 2. Main Large Title (Bold and Brown in Century Gothic)
+    # 2. Main Large Title (Bold and Brown)
     st.markdown('<div class="main-title">your next<br>ai finder</div>', unsafe_allow_html=True)
     
     # 3. Custom Chat Box using a Streamlit Form to capture layout
@@ -140,8 +138,10 @@ def build_layout():
             label_visibility="collapsed"
         )
         
+        # The button is created here, but CSS 'order' shifts it to the left side visual view
         submit_button = st.form_submit_button(label="Send")
         
+    # Injecting the custom pill shape classes onto the standard input element dynamically
     st.markdown(
         """
         <script>
