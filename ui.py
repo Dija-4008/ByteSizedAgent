@@ -22,13 +22,14 @@ def init_page():
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Navigation Links at top right */
+        /* Navigation Links at top right - Updated to bold Times New Roman */
         .nav-container {
             text-align: right;
             font-size: 1.2rem;
             color: #555555;
             margin-bottom: 5rem;
-            font-family: Arial, sans-serif;
+            font-family: 'Times New Roman', Times, serif !important;
+            font-weight: bold !important;
         }
         .nav-link {
             margin-left: 20px;
@@ -55,12 +56,12 @@ def init_page():
             background: transparent !important;
         }
         
-        /* The Dark Gray Pill Box with Bold Times New Roman & Light Yellow Font */
+        /* The Dark Gray Pill Box - Increased height to 220px */
         .custom-chat-input, 
         .custom-chat-input input, 
         .custom-chat-input textarea {
             width: 100% !important;
-            height: 160px !important;       
+            height: 220px !important;       
             background-color: #555555 !important; 
             border: 3.5px solid #000000 !important; 
             border-radius: 45px !important;  
@@ -86,8 +87,18 @@ def init_page():
             font-family: 'Times New Roman', Times, serif !important;
             font-weight: bold !important;
         }
+
+        /* Target the Send button to make it a little bit transparent */
+        div[data-testid="stFormSubmitButton"] button {
+            opacity: 0.6 !important;
+            transition: opacity 0.2s ease;
+        }
+        /* Optional hover effect so users know it's clickable */
+        div[data-testid="stFormSubmitButton"] button:hover {
+            opacity: 0.9 !important;
+        }
     </style>
-    """,
+    """
     st.markdown(custom_css, unsafe_allow_html=True)
 
 def build_layout():
