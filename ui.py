@@ -2,7 +2,7 @@ import streamlit as st
 
 def init_page():
     """Sets the page title and injects custom CSS to match your exact design."""
-    st.set_page_config(page_title="Client Finder", page_icon="🤖", layout="wide")
+    st.set_page_config(page_title="Client Finder", layout="wide")
     
     # Custom CSS to strip standard Streamlit layout and style the UI
     # Custom CSS to match the exact shape and dark gray fill
