@@ -87,7 +87,7 @@ def init_page():
             font-weight: bold !important;
         }
     </style>
-    """
+    """,
     st.markdown(custom_css, unsafe_allow_html=True)
 
 def build_layout():
