@@ -2,11 +2,14 @@ import streamlit as st
 
 def init_page():
     """Sets the page title and injects custom CSS to match your exact design."""
-    st.set_page_config(page_title="Client Finder", page_icon="🤖", layout="wide")
+    st.set_page_config(page_title="Client Finder", layout="wide")
     
-    # Custom CSS to match the exact shape, font, and dark gray fill
+   # Custom CSS with Web Font Import
     custom_css = """
     <style>
+        /* Import Cascadia Code/Mono from a public CDN so it loads on ALL devices */
+        @import url('https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code/index.css');
+
         /* Hide default Streamlit headers and footers */
         #MainMenu, header, footer {visibility: hidden;}
         
@@ -32,10 +35,10 @@ def init_page():
             color: #777777 !important;
         }
         
-        /* Center Title (Bigger font, removed exclamation mark look) */
+        /* Center Title */
         .main-title {
             text-align: center;
-            font-size: 5.5rem; /* Increased size */
+            font-size: 5.5rem; 
             font-weight: normal;
             color: #000000;
             line-height: 1.1;
@@ -50,7 +53,7 @@ def init_page():
             padding: 0 !important;
         }
         
-        /* The Dark Gray Pill Box with Cascadia Mono Light */
+        /* The Dark Gray Pill Box with imported font */
         .custom-chat-input {
             width: 100% !important;
             height: 160px !important;       
@@ -59,8 +62,8 @@ def init_page():
             border-radius: 45px !important;  
             color: #ffffff !important;
             
-            /* Font changed to Cascadia Mono Light */
-            font-family: "Cascadia Mono Light", "Cascadia Mono", monospace !important;
+            /* Using the imported web font and explicitly setting a light font-weight (300) */
+            font-family: "Cascadia Code", "Cascadia Mono", monospace !important;
             font-weight: 300 !important;
             font-size: 1.1rem !important;
             
@@ -74,7 +77,7 @@ def init_page():
         .custom-chat-input::placeholder {
             color: #cccccc !important;
             opacity: 0.8;
-            font-family: "Cascadia Mono Light", "Cascadia Mono", monospace !important;
+            font-family: "Cascadia Code", "Cascadia Mono", monospace !important;
             font-weight: 300 !important;
         }
     </style>
@@ -90,7 +93,7 @@ def build_layout():
     )
     
     # 2. Main Large Title (Removed the '!' and made it bigger via CSS)
-    st.markdown('<div class="main-title">your next<br>client finder</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">Your next<br>client finder</div>', unsafe_allow_html=True)
     
     # 3. Custom Chat Box using a Streamlit Form to capture the enter key
     with st.form(key="chat_form", clear_on_submit=True):
