@@ -4,36 +4,39 @@ def init_page():
     """Sets the page title and injects custom CSS to match your exact design."""
     st.set_page_config(page_title="Client Finder", page_icon="🤖", layout="wide")
     
-    # Custom CSS with light green screen, brown title, and left-aligned button
+    # Custom CSS with exact light green background and creamy header links
     custom_css = """
     <style>
         /* Hide default Streamlit headers and footers */
         #MainMenu, header, footer {visibility: hidden;}
         
-        /* Main page layout - Turns the screen light green */
+        /* Main page layout - Turns the screen your exact shade of light green */
         .main, .stApp {
-            background-color: #e2f0d9 !important; /* Light pastel green screen background */
+            background-color: #99dfa1 !important; 
         }
         
         .main .block-container {
-            padding-top: 2rem;
+            padding-top: 0.5rem; /* Reduced to bring everything higher up */
             max-width: 900px;
             margin: 0 auto;
             font-family: 'Times New Roman', Times, serif;
         }
         
-        /* Navigation Links at top right */
+        /* Navigation Links at top right - Positioned higher up */
         .nav-container {
             text-align: right;
             font-size: 1.2rem;
-            color: #555555;
-            margin-bottom: 5rem;
+            margin-top: 0rem;
+            margin-bottom: 4rem;
             font-family: Arial, sans-serif;
         }
+        
+        /* Changed to a distinct, beautiful creamy color and made bold for readability */
         .nav-link {
             margin-left: 20px;
             text-decoration: none;
-            color: #555555 !important;
+            color: #FFFDD0 !important; /* Creamy color */
+            font-weight: bold;
         }
         
         /* Center Title - Bold and Brown */
@@ -121,14 +124,14 @@ def init_page():
 
 def build_layout():
     """Draws the custom visual design."""
-    # 1. Top Right Links
+    # 1. Top Right Links (Creamy & Higher Up)
     st.markdown(
         '<div class="nav-container"><a class="nav-link" href="#">AboutUs</a><a class="nav-link" href="#">FAQ</a></div>', 
         unsafe_allow_html=True
     )
     
     # 2. Main Large Title (Bold and Brown)
-    st.markdown('<div class="main-title">Your Next<br>Client Finder</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">your next<br>ai finder</div>', unsafe_allow_html=True)
     
     # 3. Custom Chat Box using a Streamlit Form to capture layout
     with st.form(key="chat_form", clear_on_submit=True):
@@ -138,7 +141,7 @@ def build_layout():
             label_visibility="collapsed"
         )
         
-        # The button is created here, but CSS 'order' shifts it to the left side visual view
+        # The button layout configuration
         submit_button = st.form_submit_button(label="Send")
         
     # Injecting the custom pill shape classes onto the standard input element dynamically
