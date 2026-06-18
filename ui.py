@@ -99,7 +99,7 @@ def build_layout():
     )
     
     # 2. Main Large Title
-    st.markdown('<div class="main-title">your next<br>client finder</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">Your next<br>client finder</div>', unsafe_allow_html=True)
     
     # 3. Custom Chat Box using a Streamlit Form to capture the enter key
     with st.form(key="chat_form", clear_on_submit=True):
