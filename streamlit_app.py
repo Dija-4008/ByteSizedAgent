@@ -14,16 +14,15 @@ user_query = ui.build_layout()
 
 # 4. Process the backend API call if someone sent a message
 if user_query:
-    # Save the new user message to session state
     st.session_state.messages.append({"role": "user", "content": user_query})
     
-    # Send the query directly to OpenAI's server
     try:
+        # Send the query directly to Groq Cloud's API
         response = requests.post(
-            "https://api.openai.com/v1/chat/completions",
+            "https://api.groq.com/openai/v1/chat/completions",  # 👈 Groq API URL
             headers={"Authorization": f"Bearer {st.secrets['BAND_API_KEY']}"}, 
             json={
-                "model": "gpt-4o",  
+                "model": "llama-3.3-70b-versatile",  # 👈 Groq's high-intelligence model
                 "messages": st.session_state.messages 
             }
         )
@@ -32,19 +31,16 @@ if user_query:
         
         if "choices" in result:
             agent_reply = result["choices"][0]["message"]["content"]
-            # Save the response
             st.session_state.messages.append({"role": "assistant", "content": agent_reply})
-            # Force a rerun to clear the input box and let the message history loop render everything cleanly
             st.rerun()
         else:
-            st.error(f"OpenAI returned an unexpected message structure: {result}")
+            st.error(f"Groq returned an unexpected structure: {result}")
         
     except Exception as e:
         st.error(f"Backend Connection Error: {e}")
 
-# 5. NOW render the chat history container BELOW the interface
-# This keeps the history in one clean, un-duplicated block!
-st.markdown("---")  # Visual separator line
+# 5. Render the chat history container BELOW the interface
+st.markdown("---")  
 for msg in st.session_state.messages:
     if msg["role"] == "user":
         ui.show_user_message(msg["content"])
