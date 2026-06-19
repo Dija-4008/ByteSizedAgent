@@ -18,15 +18,15 @@ if user_query:
     
     try:
         # Send the query directly to Groq Cloud's API
-        response = requests.post(
-            "https://api.groq.com/openai/v1/chat/completions",  # 👈 Groq API URL
-            headers={"Authorization": f"Bearer {st.secrets['BAND_API_KEY']}"}, 
-            json={
-                "model": "llama-3.3-70b-versatile",  # 👈 Groq's high-intelligence model
-                "messages": st.session_state.messages 
+        response = requests.get(
+            "https://app.band.ai/api/v1/agent/me",
+            headers={
+                "X-API-Key": st.secrets["BAND_API_KEY"]
             }
         )
-        
+
+st.write(response.status_code)
+st.write(response.text)
         result = response.json()
         
         if "choices" in result:
