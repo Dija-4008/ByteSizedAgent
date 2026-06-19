@@ -14,10 +14,7 @@ user_query = ui.build_layout()
 
 # 4. Process the backend API call if someone sent a message
 if user_query:
-    st.session_state.messages.append({"role": "user", "content": user_query})
-    
     try:
-        # Send the query directly to Groq Cloud's API
         response = requests.get(
             "https://app.band.ai/api/v1/agent/me",
             headers={
@@ -25,17 +22,9 @@ if user_query:
             }
         )
 
-st.write(response.status_code)
-st.write(response.text)
-        result = response.json()
-        
-        if "choices" in result:
-            agent_reply = result["choices"][0]["message"]["content"]
-            st.session_state.messages.append({"role": "assistant", "content": agent_reply})
-            st.rerun()
-        else:
-            st.error(f"Groq returned an unexpected structure: {result}")
-        
+        st.write("Status Code:", response.status_code)
+        st.write("Response:", response.text)
+
     except Exception as e:
         st.error(f"Backend Connection Error: {e}")
 
