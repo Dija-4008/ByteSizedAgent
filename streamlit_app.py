@@ -27,7 +27,7 @@ if user_query:
 
     except Exception as e:
         st.error(f"Backend Connection Error: {e}")
-
+        
 # 5. Render the chat history container BELOW the interface
 st.markdown("---")  
 for msg in st.session_state.messages:
